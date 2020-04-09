@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: headerFragment">
+    <title id="pageTitle">Page title</title>
+</head>
+<body>
+    <header th:insert="fragments.html :: header"></header>
+
+    <div class="container-fluid">
+
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+
+
+        <div th:if="${param.error}">
+            Invalid username and password.
+        </div>
+        <div th:if="${param.logout}">
+            You have been logged out.
+        </div>
+        <h1>Please Sign In!</h1>
+        <form th:action="@{/login}" method="post">
+            <div><label> User Name : <input type="text" name="username"/> </label></div>
+            <div><label> Password: <input type="password" name="password"/> </label></div>
+            <div><input type="submit" value="Login"/></div>
+        </form>
+
+    </div>
+
+    <footer th:replace="fragments.html :: footer"></footer>
+
+</body>
+</html>

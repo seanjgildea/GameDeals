@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: headerFragment">
+    <title id="pageTitle">Page title</title>
+</head>
+<body>
+<header th:insert="fragments.html :: header"></header>
+
+<style>
+
+    .upload-thumbnail {
+        max-width: 100px;
+        max-height: 100px;
+    }
+</style>
+
+<div class="container-fluid">
+
+
+
+    <div class="row col-md-12 table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"><a th:href="@{/game/titleSort}">Name <i class="fas fa-caret-down"></i></a></th>
+                <th scope="col"><a th:href="@{/game/platformSort}">Email <i class="fas fa-caret-down"></i></a></th>
+                <th scope="col"><a th:href="@{/game/priceSort}">Image <i class="fas fa-caret-down"></i></a></th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="upload, rowStat: ${uploads}"
+                th:style="${rowStat.odd} ? 'background-color: #f1f3f5' : 'background-color: #FFF;'">
+                <td style="font-weight: bold; text-decoration: underline"><span  th:text="*{upload.name}" target="_blank">Name ...</span></td>
+                <td style="font-weight: bold"><span  th:text="*{upload.email}">Email ...</span></td>
+                <td><img th:src="*{'/imageDisplay?id=' + upload.id}" th:class="upload-thumbnail"/></td>
+
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer th:replace="fragments.html :: footer"></footer>
+</body>
+</html>

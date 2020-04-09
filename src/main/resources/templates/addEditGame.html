@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: headerFragment">
+    <title id="pageTitle">Page title</title>
+</head>
+<body>
+<header th:insert="fragments.html :: header"></header>
+
+<div class="container-fluid">
+
+    <h1><span th:text="${pageTitle}" ></span> Game</h1>
+    <form action="#" th:action="@{/game/add}" th:object="${command}" method="POST" enctype="multipart/form-data" >
+        <fieldset>
+
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" th:field="*{title}" id="title" th:errorclass="has-error"/>
+                <div th:if="${#fields.hasErrors('title')}" class="alert alert-danger" th:errors="*{title}">Title Error</div>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="text" class="form-control" th:field="*{price}" id="price" th:errorclass="has-error"/>
+                <div th:if="${#fields.hasErrors('price')}" class="alert alert-danger" th:errors="*{price}">Price Error</div>
+            </div>
+
+            <div class="form-group">
+                <label for="link">Link:</label>
+                <input type="text" class="form-control" th:field="*{link}" id="link" th:errorclass="has-error">
+                <div th:if="${#fields.hasErrors('link')}" class="alert alert-danger" th:errors="*{link}">Link Error</div>
+            </div>
+
+            <div class="form-group">
+                <label for="platformId">Please Select One</label>
+                <select class="form-control" th:field="*{platform.id}" id="platformId">
+                    <option value="">Please Select One</option>
+                    <option th:each="platform : ${platforms}" th:value="${platform.id}" th:text="${platform.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+
+                <input type="file" th:field="*{file}"/>
+                <span class="placeholder" data-placeholder="Choose an image...">Choose an image...</span>
+                <label th:for="file" class="button">Browse</label>
+                <div class="error-message" th:if="${#fields.hasErrors('file')}" th:errors="*{file}"></div>
+
+            </div>
+
+           <!-- <p>Image: </p><input type="file" th:field="*{images}" multiple="multiple"/><br/><br/>-->
+
+            <div class="form-group">
+                <label for="description">Details about the Deal: (Optional)</label>
+                <textarea class="form-control" th:field="*{description}" id="description" rows="3"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </fieldset>
+    </form>
+</div>
+
+<footer th:replace="fragments.html :: footer"></footer>
+</body>
+</html>

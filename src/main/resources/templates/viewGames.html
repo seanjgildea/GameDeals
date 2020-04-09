@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: headerFragment">
+    <title id="pageTitle">Page title</title>
+</head>
+<body>
+<header th:insert="fragments.html :: header"></header>
+
+
+
+<div class="container-fluid">
+
+
+
+    <div class="row col-md-12 table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"><a th:href="@{/game/titleSort}">Title <i class="fas fa-caret-down"></i></a></th>
+                <th scope="col"><a th:href="@{/game/platformSort}">Platform <i class="fas fa-caret-down"></i></a></th>
+                <th scope="col"><a th:href="@{/game/priceSort}">Price <i class="fas fa-caret-down"></i></a></th>
+
+                <th scope="col">Desc</th>
+                <th scope="col">Posted</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="game, rowStat: ${games}"
+                th:style="${rowStat.odd} ? 'background-color: #f1f3f5' : 'background-color: #FFF;'">
+                <td style="font-weight: bold; text-decoration: underline"><a th:href="${game.link}" th:text="${game.title}" target="_blank">Title ...</a></td>
+                <td style="font-weight: bold"><a href="#" th:text="${game.platform.name}">Platform ...</a></td>
+                <td>$<span th:text="${game.price}">Price</span></td>
+                <td th:text="${game.description}">Desc ...</td>
+                <td th:text="${#temporals.format(game.createDate, 'MM-dd-yyyy')}">Date...</td>
+                <td><a th:href="@{'/game/edit/' + ${game.id}}"><i class="far fa-edit"></i></a>&nbsp;&nbsp;
+                    <a th:href="@{'/game/delete/' + ${game.id}}"><i class="far fa-trash-alt"></i></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer th:replace="fragments.html :: footer"></footer>
+</body>
+</html>
